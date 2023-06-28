@@ -2,9 +2,9 @@ global using BlazorEcommerce.Shared;
 global using System.Net.Http.Json;
 global using BlazorEcommerce.Client.Services.ProductService;
 global using BlazorEcommerce.Client.Services.CategoryService;
-using BlazorEcommerce.Client;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+global using BlazorEcommerce.Client;
+global using Microsoft.AspNetCore.Components.Web;
+global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

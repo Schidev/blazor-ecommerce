@@ -19,5 +19,6 @@ namespace BlazorEcommerce.Server.Controllers
             var result = await _categoryService.GetCategories();
             return Ok(result);
         }
+
     }
 }
