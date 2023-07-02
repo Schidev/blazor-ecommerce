@@ -8,6 +8,7 @@ global using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 global using BlazorEcommerce.Client.Services.CartService;
 global using BlazorEcommerce.Client.Services.AuthService;
 global using Microsoft.AspNetCore.Components.Authorization;
+global using BlazorEcommerce.Client.Services.OrderService;
 using Blazored.LocalStorage;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddOptions();
 builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();

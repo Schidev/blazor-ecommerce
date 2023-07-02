@@ -9,11 +9,16 @@ namespace BlazorEcommerce.Server.Services.AuthService
     {
         private readonly DataContext _context;
         private readonly IConfiguration _configuration;
-        public AuthService(DataContext context, IConfiguration configuration)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AuthService(DataContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             this._context = context;
             this._configuration = configuration;
+            this._httpContextAccessor = httpContextAccessor;
         }
+
+        public int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
         public async Task<ServiceResponse<int>> Register(User user, string password)
         {
