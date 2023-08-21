@@ -4,12 +4,12 @@ namespace BlazorEcommerce.Client.Services.OrderService
 {
     public class OrderService : IOrderService
     {
-        private readonly HttpClient _http;
+        private readonly HttpClient _httpClient;
         private readonly AuthenticationStateProvider _authStateProvider;
         private readonly NavigationManager _navigationManager;
-        public OrderService(HttpClient http, AuthenticationStateProvider authStateProvider, NavigationManager navigationManager)
+        public OrderService(HttpClient httpClient, AuthenticationStateProvider authStateProvider, NavigationManager navigationManager)
         {
-            this._http = http;
+            this._httpClient = httpClient;
             this._authStateProvider = authStateProvider;
             this._navigationManager = navigationManager;
         }
@@ -20,27 +20,29 @@ namespace BlazorEcommerce.Client.Services.OrderService
         }
 
 
-        public async Task PlaceOrder()
+        public async Task<string> PlaceOrder()
         {
             if (await IsUserAuthenticated())
             {
-                await _http.PostAsync("api/order", null);
+                var result = await _httpClient.PostAsync("api/payment/checkout", null);
+                var url = await result.Content.ReadAsStringAsync();
+                return url;
             }
             else
             {
-                _navigationManager.NavigateTo("login");
+                return "login";
             }
         }
 
         public async Task<List<OrderOverviewResponse>> GetOrders()
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<List<OrderOverviewResponse>>>("api/order");
+            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<OrderOverviewResponse>>>("api/order");
             return result.Data;
         }
 
         public async Task<OrderDetailsResponse> GetOrderDetails(int orderId)
         {
-            var result = await _http.GetFromJsonAsync<ServiceResponse<OrderDetailsResponse>>($"api/order/{orderId}");
+            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<OrderDetailsResponse>>($"api/order/{orderId}");
             return result.Data;
         }
     }
