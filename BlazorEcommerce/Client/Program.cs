@@ -12,6 +12,7 @@ global using BlazorEcommerce.Client.Services.OrderService;
 global using BlazorEcommerce.Client.Services.AddressService;
 global using BlazorEcommerce.Client.Services.ProductTypeService;
 using Blazored.LocalStorage;
+using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -20,6 +21,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddBlazoredLocalStorage();
+
+builder.Services.AddMudServices();
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
